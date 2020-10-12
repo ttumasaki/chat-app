@@ -39,6 +39,7 @@ RSpec.describe "メッセージ投稿機能", type: :system do
       # 送信した値がDBに保存されていることを確認する
       expect {
         find('input[name="commit"]').click
+        sleep(3)
       }.to change { Message.count }.by(1)
 
       # 投稿一覧画面に遷移していることを確認する
@@ -64,6 +65,7 @@ RSpec.describe "メッセージ投稿機能", type: :system do
       # 送信した値がDBに保存されていることを確認する
       expect{
         find('input[name="commit"]').click
+        sleep(3)
       }.to change {Message.count}.by(1)
 
       # 投稿一覧画面に遷移していることを確認する
@@ -85,16 +87,17 @@ RSpec.describe "メッセージ投稿機能", type: :system do
       image_path = Rails.root.join('public/images/test_image.png')
 
       # 画像選択フォームに画像を添付する
-      attach_file('message[image]',image_path, make_visible: true)
+      attach_file('message[image]', image_path, make_visible: true)
 
       # 値をテキストフォームに入力する
       post = "テスト"
-      fill_in 'message_content',with: post
+      fill_in 'message_content', with: post
 
       # 送信した値がDBに保存されていることを確認する
-      expect{
+      expect {
         find('input[name="commit"]').click
-      }.to change { Message.count}.by(1)
+        sleep(3)
+      }.to change { Message.count }.by(1)
 
       # 送信した値がブラウザに表示されていることを確認する
       expect(page).to have_content(post)
